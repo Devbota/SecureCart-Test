@@ -1,0 +1,11 @@
+{% extends 'shop/base.html' %} <!--Structure inherited from base.html-->
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post"> <!--Here user registration form is created-->
+    {% csrf_token %} <!--Security measure for CSRF attacks-->
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Sign Up</button>
+</form>
+<p>Already have an account? <a href="{% url 'login' %}">Login here</a></p> <!--link to the login page if users already have an account-->
+{% endblock %} <!--content no longer blocked due to singing in-->

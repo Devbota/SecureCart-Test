@@ -1,0 +1,6 @@
+{% extends 'shop/base.html' %}  <!--inherits structure from base file-->
+
+{% block content %}
+<h2>You have been logged out</h2> <!--Displays a confirmation message as user has logged out-->
+<a href="{% url 'login' %}">Log in again</a> <!--Link for the user to log back in-->
+{% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'shop/base.html' %} <!--Inherits structure from base.html-->
+
+{% block content %} <!--Content is no longer acccessible due to logging out-->
+<h2>Login</h2>
+<form method="post"> <!--Creates a form for user login-->
+    {% csrf_token %} <!--Security measure to prevent Cross-Site Request Forgery (CSRF) attacks-->
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Login</button> <!--Submitting button-->
+</form>
+{% endblock %}
