@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> <!--character encoding for special characters-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--page scales to screen-->
+    <title>SecureCart</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"> <!--Bootstrap CSS-->
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><!--navigation Bar-->
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'product_list' %}">SecureCart</a>
+            <div class="collapse navbar-collapse"> <!--collapsible menu containing navigation links-->
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %} <!--Checking if user is signed in if so proceeds-->
+                        <li class="nav-item">
+                            <span class="nav-link">Balance: £{{ user.balance }}</span> <!--Shows the user their balance-->
+                        </li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'cart' %}">Cart</a></li> <!--Links to user's cart-->
+                        <li class="nav-item">
+                            <form method="post" action="{% url 'logout' %}">
+                                {% csrf_token %} <!--prtoection from CSRF attacks-->
+                                <button type="submit" class="btn btn-link nav-link" style="border: none; background: none; cursor: pointer;">
+                                    Logout
+                                </button>   
+                            </form>
+                        </li>
+                    {% else %} <!--if user has not signed in then will not be shown the cart, linked to login/sign up pages-->
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'signup' %}">Sign Up</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
+
+

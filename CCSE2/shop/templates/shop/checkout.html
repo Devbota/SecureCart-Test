@@ -1,0 +1,17 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<h1>Checkout</h1>
+<p>Your Balance: <strong>£{{ balance }}</strong></p> <!--User's current balance-->
+
+{% if error %}
+    <p class="text-danger">{{ error }}</p> <!--error message if error occurs at any stage in process-->
+{% endif %}
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success" {% if balance < total_cost %}disabled{% endif %}>
+        Confirm Purchase 
+    </button> <!--Confirm Purchase button is disabled if the user's balance is not enough to buy item-->
+</form>
+{% endblock %}

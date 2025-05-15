@@ -1,0 +1,31 @@
+{% extends 'shop/base.html' %} <!--Structure inherited from base.html-->
+
+{% block content %} <!--content blocked unless access to cart is allowed-->
+<h1>Your Shopping Cart</h1>
+{% if cart_items %} {#checks for items within shopping cart#}
+    <table class="table"> <!--creation of table for cart items with: product, quantity, individual and total price-->
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %} <!--iterates through every item held in the cart, displaying: product name, quantity, price-->
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>£{{ item.product.price }}</td>
+                    <td>£{{ item.quantity|floatformat:2}}</td> <!--total cost-->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{% url 'checkout' %}" class="btn btn-success">Proceed to Checkout</a>
+
+{% else %} <!--if user hasn't selected items, will see this screen to select-->
+    <p>Your cart is empty. Please fill before attempting to purchase</p>
+{% endif %}
+{% endblock %}

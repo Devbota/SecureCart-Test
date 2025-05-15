@@ -1,0 +1,20 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<div class="card">
+    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"> <!--displays image of product-->
+    <div class="card-body">
+        <h2 class="card-title">{{ product.name }}</h2>
+
+        <p class="card-text">{{ product.description }}</p> <!--Description of product-->
+
+        <h4 class="text-success">£{{ product.price }}</h4> <!--Displays price of product-->
+        <p>Stock: {{ product.stock }}</p> <!--Shows stock to user-->
+        {% if user.is_authenticated %}
+            <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a> <!--If user is logged in, they can add items to their cart-->
+        {% else %}
+            <p class="text-danger">You must <a href="{% url 'login' %}">log in</a> to add items to the cart.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

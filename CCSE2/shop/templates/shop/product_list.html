@@ -1,0 +1,31 @@
+{% extends 'shop/base.html' %}
+
+{% block content %}
+<h1>Products</h1>
+<div class="row">
+    {% for product in products %}  <!--Iterates through the array of products-->
+        <div class="col-md-4">
+            <div class="card mb-3">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}"> <!--Displays product image to help identify item-->
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title">{{ product.name }}</h2> <!--Information about the product-->
+                    <p class="card-text">{{ product.description }}</p>
+                    <h4 class="text-success">£{{ product.price }}</h4>
+                    <p>Stock: {{ product.stock }}</p> <!--Displays product stock-->
+                    {% if user.is_authenticated %} <!--If logged in users can add items to their cart from the webstie, if not will be prompted to log in-->
+                        <a href="{% url 'add_to_cart' product.id %}" class="btn btn-primary">Add to Cart</a>
+                    {% else %}
+                        <p class="text-danger">You must <a href="{% url 'login' %}">log in</a> to add items to the cart.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>No products available.</p>
+    {% endfor %}
+</div>
+{% endblock %}
+
+
